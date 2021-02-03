@@ -11,6 +11,18 @@ typedef struct {
   float *coeff;
 } polyf_t, *p_polyf_t;
 
+
+typedef struct { //La pair donne pour chaque terme du polynome son coefficient et sa puissance ce qui évite d'ajouter les termes nuls inutiles
+  int degre ;
+  float coeff;
+} pair;
+
+typedef struct {
+  int degre ;   //Le degré maximum de notre polynome
+  struct pair *pairs;  //Notre polynome est ainsi un table de pairs qui sont les termes 
+} polyf_creux_t, *p_polyf_creux_t;
+
+
 p_polyf_t creer_polynome (int degre) ;
 
 void init_polynome (p_polyf_t p, float x) ;
