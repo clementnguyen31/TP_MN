@@ -144,7 +144,7 @@ float eval_polynome(p_polyf_t p, float x)
   float res = 0.0;
   for (int i = 0; i < p->degre + 1; i++)
   {
-    res += p->coeff[i] * pow(x,i);
+    res += p->coeff[i] * pow(x, i);
   }
   return res;
 }
@@ -173,11 +173,12 @@ p_polyf_t multiplication_polynomes(p_polyf_t p1, p_polyf_t p2)
 
 p_polyf_t puissance_polynome(p_polyf_t p, int n)
 {
-  /* 
-     p^n
-  */
+  for (int i = 0; i != n; i++)
+  {
+    p = multiplication_polynomes(p, p);
+  }
 
-  return NULL;
+  return p;
 }
 
 p_polyf_t composition_polynome(p_polyf_t p, p_polyf_t q)

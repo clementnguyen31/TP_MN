@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 
   ecrire_polynome_float(p1);
   ecrire_polynome_float(p2);
-  
+
   p_polyf_t p3;
   p3 = multiplication_polynomes(p1, p2);
   ecrire_polynome_float(p3);
@@ -31,4 +31,8 @@ int main(int argc, char **argv)
   float res = eval_polynome(p1, 0);
   printf("%f", res);
 
+  p_polyf_t p5;
+  p5 = lire_polynome_float(argv[1]);
+  p5 = puissance_polynome(p5, 3);
+  ecrire_polynome_float(p5);
 }
