@@ -47,3 +47,4 @@ p_polyf_t puissance_polynome (p_polyf_t p, int n) ;
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q) ;
 
+float composition_polynome2 (p_polyf_t p, p_polyf_t q, float n) ;

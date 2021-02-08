@@ -23,4 +23,7 @@ int main (int argc, char **argv)
 
   p_polyf_t p3 = puissance_polynome(p1,3);
   ecrire_polynome_float(p3);
+ 
+  p_polyf_t p4 = composition_polynome(p1,p2);
+  ecrire_polynome_float(p4);
 }

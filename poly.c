@@ -5,11 +5,12 @@
 
 float power(float x,int y){
   int i = 0;
+  float res = 1;
   while(i != y){
-    x = x*x;
+    res = res*x;
     i++;
   }
-  return x;
+  return res;
 }
 
 
@@ -186,8 +187,11 @@ p_polyf_t puissance_polynome (p_polyf_t p, int n)
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
 {
-return NULL;
+  p_polyf_t p3 = creer_polynome(p->degre * q->degre);
+  for(int i = 0; i< p->degre+1;i++){
+    p_polyf_t p3 = addition_polynome(multiplication_polynome_scalaire(puissance_polynome(q,i),p->coeff[i]), p3);
+  }
+  return p3;
 }
-
 
 
