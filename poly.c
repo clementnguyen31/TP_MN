@@ -3,16 +3,24 @@
 
 #include "poly.h"
 
-#include <x86intrin.h>
+float power(float x,int y){
+  int i = 0;
+  float res = 1;
+  while(i != y){
+    res = res*x;
+    i++;
+  }
+  return res;
+}
 
 p_polyf_t creer_polynome (int degre)
 {
   p_polyf_t p ;
   
-  p = (p_polyf_t) malloc (sizeof (polyf_t)) ;
+  p = (p_polyf_t) malloc(sizeof (polyf_t)) ;
   p->degre = degre ;
 
-  p->coeff = (float *) malloc ((degre+1) * sizeof (float))  ;
+  p->coeff = (float *) malloc((degre+1) * sizeof (float))  ;
 
   return p ;
 }
@@ -94,11 +102,15 @@ void ecrire_polynome_float (p_polyf_t p)
 
 int egalite_polynome (p_polyf_t p1, p_polyf_t p2)
 {
-  /*
-    tester les deux polynomes p1 et p2
-  */
-
-  return 0 ;
+  if(p1->degre == p2->degre){
+    for(int i = 0; i<p1->degre+1;i++){
+      if(p1->coeff[i] != p2->coeff[i]){
+        return 0;
+      }
+    }
+    return 1;
+  }
+  return 0;
 }
 
 p_polyf_t addition_polynome (p_polyf_t p1, p_polyf_t p2)
@@ -129,44 +141,59 @@ p_polyf_t addition_polynome (p_polyf_t p1, p_polyf_t p2)
 
 p_polyf_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
 {
-  /* alpha * p1 */
+  for(int i = 0; i<p->degre+1;i++){
+    p->coeff[i] = p->coeff[i]*alpha;
+  }
+  return p;
 
-  return NULL ;
 }
 
 float eval_polynome (p_polyf_t p, float x)
 {
-  /* 
-     valeur du polynome pour la valeur de x
-  */
-
-  return 0.0 ;
+  float res = 0.0;
+  for(int i = 0; i<p->degre+1;i++){
+    res = res + p->coeff[i]*power(x,i);
+  }
+  return res;
 }
 
 p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 {
-  /* p1 * p2 */
+  p_polyf_t p = creer_polynome(p1->degre + p2->degre);
+  for(int i = 0; i<p->degre+1;i++){
+    p->coeff[i] = 0;
+  }
 
-  return NULL ;
+  for(int j = 0; j<p1->degre+1;j++){
+    for(int k = 0; k<p2->degre+1;k++){
+      p->coeff[j+k] = p->coeff[j+k] + p1->coeff[j]*p2->coeff[k];
+    }
+  }
+  return p;
 }
 
 p_polyf_t puissance_polynome (p_polyf_t p, int n)
 {
-  /* 
-     p^n
-  */
-
-  return NULL ;
+  int i = 1;
+  p_polyf_t temp = p;
+  while(i != n){
+    p = multiplication_polynomes (p,temp);
+    i++;
+  }
+  return p;
 }
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
 {
-  /*
-    p O q
-  */
+  printf("%d\n",1);
+  p_polyf_t p3 = creer_polynome(p->degre*q->degre);
 
-  return NULL ;
+  init_polynome(p3,0.0);
+
+  for(int i = 1; i< p->degre+1;i++){
+    p3 = addition_polynome(multiplication_polynome_scalaire(puissance_polynome(q,i),p->coeff[i]), p3);
+  }
+  return p3;
 }
-
 
 
