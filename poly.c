@@ -19,10 +19,10 @@ p_polyf_t creer_polynome (int degre)
 {
   p_polyf_t p ;
   
-  p = (p_polyf_t) malloc (sizeof (polyf_t)) ;
+  p = (p_polyf_t) malloc(sizeof (polyf_t)) ;
   p->degre = degre ;
 
-  p->coeff = (float *) malloc ((degre+1) * sizeof (float))  ;
+  p->coeff = (float *) malloc((degre+1) * sizeof (float))  ;
 
   return p ;
 }
@@ -187,9 +187,13 @@ p_polyf_t puissance_polynome (p_polyf_t p, int n)
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
 {
-  p_polyf_t p3 = creer_polynome(p->degre * q->degre);
-  for(int i = 0; i< p->degre+1;i++){
-    p_polyf_t p3 = addition_polynome(multiplication_polynome_scalaire(puissance_polynome(q,i),p->coeff[i]), p3);
+  printf("%d\n",1);
+  p_polyf_t p3 = creer_polynome(p->degre*q->degre);
+
+  init_polynome(p3,0.0);
+
+  for(int i = 1; i< p->degre+1;i++){
+    p3 = addition_polynome(multiplication_polynome_scalaire(puissance_polynome(q,i),p->coeff[i]), p3);
   }
   return p3;
 }

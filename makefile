@@ -1,6 +1,6 @@
 all: test_poly perf_poly
 
-GCC_OPT= -Wall 
+GCC_OPT= -Wall -g
 
 perf_poly: perf_poly.o poly.o
 	gcc -o perf_poly perf_poly.o poly.o
