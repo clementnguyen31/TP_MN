@@ -130,7 +130,7 @@ Poly_creux *power_poly(Poly_creux *p, int n)
     Poly_creux *temp = p;
     while (i != n)
     {
-        // p = mult_poly(p, p, temp);
+        p = mult_poly(p, temp);
         i++;
     }
     return p;
