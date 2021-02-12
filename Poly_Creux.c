@@ -44,12 +44,13 @@ void display_poly(Poly_creux *p)
     }
 }
 
-void add_poly(Poly_creux **result, Poly_creux *p1, Poly_creux *p2)
+Poly_creux *add_poly(Poly_creux *p1, Poly_creux *p2)
 {
+    Poly_creux *result;
     Poly_creux *res;
     res = malloc(sizeof(Poly_creux));
     res->next = NULL;
-    *result = res;
+    result = res;
     while (p1->next && p2->next)
     {
         if (p1->exp > p2->exp) // 1er cas
@@ -75,18 +76,22 @@ void add_poly(Poly_creux **result, Poly_creux *p1, Poly_creux *p2)
         res = res->next;
         res->next = NULL;
     }
+    return result;
 }
 
-Poly_creux *mult_poly(Poly_creux *result, Poly_creux *poly1, Poly_creux *poly2)
+Poly_creux *mult_poly(Poly_creux *poly1, Poly_creux *poly2)
 {
-    Poly_creux *first, *second;
+    Poly_creux *result = NULL;
+    Poly_creux *first;
+    Poly_creux *second;
     first = poly1;
     second = poly2;
     while (first != NULL)
     {
         while (second != NULL)
         {
-            int coeff, power;
+            int coeff;
+            int power;
             coeff = first->coef * second->coef;
             power = first->exp + second->exp;
             create_poly(&result, coeff, power); // creation dun nouveau polynome avec les nouvelles valeurs
@@ -125,7 +130,7 @@ Poly_creux *power_poly(Poly_creux *p, int n)
     Poly_creux *temp = p;
     while (i != n)
     {
-        p = mult_poly(p, p, temp);
+        // p = mult_poly(p, p, temp);
         i++;
     }
     return p;
