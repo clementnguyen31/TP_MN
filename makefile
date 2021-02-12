@@ -27,4 +27,4 @@ Poly_Creux.o: Poly_Creux.c Poly_Creux.h
 	gcc $(GCC_OPT) -c Poly_Creux.c
 
 clean:
-	rm -f test_poly perf_poly *.o *~
+	rm -f test_poly perf_poly test_polycreux *.o *~
